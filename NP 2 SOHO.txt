@@ -1,0 +1,390 @@
+NP 2 SOHO
+
+!!! Router
+
+Router>en
+Router#conf 
+Configuring from terminal, memory, or network [terminal]? 
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#^Z
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#in g0/0
+Router(config-if)#no sh
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+
+Router(config-if)#in g0/0.10
+Router(config-subif)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.10, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.10, changed state to up
+
+Router(config-subif)#enca
+Router(config-subif)#encapsulation do
+Router(config-subif)#encapsulation dot1Q 10
+Router(config-subif)#ip add 192.168.1.1 255.255.255.192
+Router(config-subif)#
+Router(config-subif)#in g0/0.20
+Router(config-subif)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.20, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.20, changed state to up
+
+Router(config-subif)#encapsulation dot1Q 20
+Router(config-subif)#ip add 192.168.1.65 255.255.255.192
+Router(config-subif)#
+Router(config-subif)#in g0/0.30
+Router(config-subif)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.30, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.30, changed state to up
+
+Router(config-subif)#encapsulation dot1Q 30
+Router(config-subif)#ip add 192.168.1.129 255.255.255.192
+Router(config-subif)#exit
+Router(config)#do sh star
+startup-config is not present
+Router(config)#do wr
+Building configuration...
+[OK]
+Router(config)#do sh star
+Using 976 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524CIV4-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.1.1 255.255.255.192
+!
+interface GigabitEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.1.65 255.255.255.192
+!
+interface GigabitEthernet0/0.30
+ encapsulation dot1Q 30
+ ip address 192.168.1.129 255.255.255.192
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
+
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#ser
+Router(config)#service 
+Router(config)#service dhcp
+Router(config)#ip dhcp pool Admin-pool
+Router(dhcp-config)#network 192.168.1.0 255.255.255.192
+Router(dhcp-config)#defau
+Router(dhcp-config)#default-router 192.168.1.1
+Router(dhcp-config)#dns
+Router(dhcp-config)#dns-server 192.168.1.1
+Router(dhcp-config)#domai
+Router(dhcp-config)#domain-name Admin.com
+Router(dhcp-config)#exit
+Router(config)#
+Router(config)#ip dhcp pool Finance-pool
+Router(dhcp-config)#network 192.168.1.64 255.255.255.192
+Router(dhcp-config)#default-router 192.168.1.65
+Router(dhcp-config)#dns-server 192.168.1.65
+Router(dhcp-config)#domain-name Finance.com
+Router(dhcp-config)#exit
+Router(config)#
+Router(config)#ip dhcp pool Customerservice-pool
+Router(dhcp-config)#network 192.168.1.128 255.255.255.192
+Router(dhcp-config)#default-router 192.168.1.129
+Router(dhcp-config)#dns-server 192.168.1.129
+Router(dhcp-config)#domain-name Customerservice.com
+Router(dhcp-config)#exit
+Router(config)#
+
+
+!!! Switch
+
+Switch>en
+Switch#
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#in r f0/2-4
+Switch(config-if-range)#swit
+Switch(config-if-range)#switchport a
+Switch(config-if-range)#switchport access 
+Switch(config-if-range)#switchport access vlan 10
+% Access VLAN does not exist. Creating vlan 10
+Switch(config-if-range)#in r f0/5-7
+Switch(config-if-range)#switchport access vlan 20
+% Access VLAN does not exist. Creating vlan 20
+Switch(config-if-range)#in r f0/8-10
+Switch(config-if-range)#switchport access vlan 30
+% Access VLAN does not exist. Creating vlan 30
+Switch(config-if-range)#
+Switch(config-if-range)#exit
+Switch(config)#do wr
+Building configuration...
+[OK]
+Switch(config)#do sh star
+Switch(config)#do sh star
+Using 1323 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+ switchport access vlan 10
+!
+interface FastEthernet0/3
+ switchport access vlan 10
+!
+interface FastEthernet0/4
+ switchport access vlan 10
+
+Switch(config)#in r f0/2-4
+Switch(config-if-range)#sw
+Switch(config-if-range)#switchport mo
+Switch(config-if-range)#switchport mode 
+Switch(config-if-range)#switchport mode acc
+Switch(config-if-range)#switchport mode access 
+Switch(config-if-range)#in r f0/5-7
+Switch(config-if-range)#switchport mode access 
+Switch(config-if-range)#in r f0/8-10
+Switch(config-if-range)#switchport mode access 
+Switch(config-if-range)#exit
+Switch(config)#do wr
+Building configuration...
+[OK]
+Switch(config)#
+Switch(config)#exit
+Switch#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Switch#sh star
+Switch#sh startup-config 
+Using 1539 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/3
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/4
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/5
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/6
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/7
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/8
+ switchport access vlan 30
+ switchport mode access
+!
+interface FastEthernet0/9
+ switchport access vlan 30
+ switchport mode access
+!
+interface FastEthernet0/10
+ switchport access vlan 30
+ switchport mode access
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+
+
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#in f0/1
+Switch(config-if)#swi
+Switch(config-if)#switchport 
+Switch(config-if)#switchport mo
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#exit
+Switch(config)#do wr
+Building configuration...
+[OK]
+Switch(config)#
